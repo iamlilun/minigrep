@@ -1,0 +1,9 @@
+We’ve discussed how you can make a fungible token
+using ERC20, but what if not all
+tokens are alike? This comes up in situations 
+like real estate or collectibles, where some 
+items are valued more than others, due to 
+their usefulness,rarity, etc. ERC721 is a 
+standard for representing ownership of 
+non-fungible tokens, that is, where each
+token is unique.
