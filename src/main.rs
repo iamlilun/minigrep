@@ -1,9 +1,13 @@
 use std::env;
 use std::fs; //處理跟文件相關事務
+use std::process; //處理執行續
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let config = Config::new(&args); //拆分出函數..
+    let config = Config::new(&args).unwrap_or_else(|err| {
+        println!("Problem parsing arguments: {}", err);
+        process::exit(1) //離開程式
+    });
 
     println!("Search for {}", config.query);
     println!("In file {}", config.filename);
@@ -14,19 +18,20 @@ fn main() {
     println!("With text:\n{}", contents);
 }
 
-//重構成struct比較有可讀性
 struct Config {
     query: String,
     filename: String,
 }
 
 impl Config {
-    //重構成impl..更有rust的味道
-    fn new(args: &[String]) -> Config {
-        //使用clone..放棄一些性能確可以省去維護借用生命周期的麻煩..是值得的
+    ///重構成用Result   
+    fn new(args: &[String]) -> Result<Config, &'static str> {
+        if args.len() < 3 {
+            return Err("not enugh arguments");
+        }
         let query = args[1].clone();
         let filename = args[2].clone();
     
-        Config{query, filename}
+        Ok(Config{query, filename})
     }
 }
