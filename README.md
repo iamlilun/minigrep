@@ -1,5 +1,5 @@
 # Minigrep
-Search file by keyword, similar grep command. just study rust language
+Search file contents by keyword, similar grep command. just study rust language
 
 ## Test
 `$ cargo test`
